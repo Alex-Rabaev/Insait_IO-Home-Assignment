@@ -1,11 +1,20 @@
-import openai
+from openai import OpenAI
 from config import Config
 
-openai.api_key = Config.OPENAI_API_KEY
+
+client = OpenAI(
+    api_key = Config.OPENAI_API_KEY
+)
 
 
 def get_openai_response(question):
-    response = openai.Completion.create(
-        engine="davinci", prompt=question, max_tokens=150
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": question},
+        ],
     )
-    return response.choices[0].text.strip()
+
+    openai_response = completion.choices[0].message.content
+
+    return openai_response
