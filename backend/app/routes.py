@@ -1,7 +1,7 @@
 from app import app, db
 from flask import request, jsonify
 from app.models import QuestionAnswer
-from services.openai_service import get_openai_response
+from app.services.openai_service import get_openai_response
 
 
 @app.route("/ask", methods=["POST"])
