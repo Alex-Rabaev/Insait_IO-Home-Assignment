@@ -1,5 +1,7 @@
-from app import app
+from app import app, db
 from flask import request, jsonify
+from app.models import QuestionAnswer
+from services.openai_service import get_openai_response
 
 
 @app.route("/ask", methods=["POST"])
@@ -9,8 +11,14 @@ def ask_question():
     if not question:
         return jsonify({"error": "No question provided"}), 400
 
-    # For now, just return the received question
-    return jsonify({"question": question})
+    answer = get_openai_response(question)
+
+    qa = QuestionAnswer(question=question, answer=answer)
+    db.session.add(qa)
+    db.session.commit()
+    db.session.refresh(qa)
+
+    return jsonify({"id": qa.id, "question": question, "answer": answer})
 
 
 # get messsage ok
