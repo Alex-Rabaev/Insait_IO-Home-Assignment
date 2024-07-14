@@ -47,9 +47,3 @@ def delete_question_answer_by_id(id):
     db.session.delete(qa)
     db.session.commit()
     return jsonify({"message": "Question deleted successfully"})
-
-
-# get messsage ok
-@app.route("/test", methods=["GET"])
-def test():
-    return jsonify({"message": "ok"})
