@@ -21,6 +21,34 @@ def ask_question():
     return jsonify({"id": qa.id, "question": question, "answer": answer})
 
 
+@app.route("/questions", methods=["GET"])
+def get_all_questions_answers():
+    questions_answers = QuestionAnswer.query.all()
+    result = [
+        {"id": qa.id, "question": qa.question, "answer": qa.answer}
+        for qa in questions_answers
+    ]
+    return jsonify(result)
+
+
+@app.route("/questions/<int:id>", methods=["GET"])
+def get_question_answer_by_id(id):
+    qa = QuestionAnswer.query.get(id)
+    if not qa:
+        return jsonify({"error": "Question not found"}), 404
+    return jsonify({"id": qa.id, "question": qa.question, "answer": qa.answer})
+
+
+@app.route("/questions/<int:id>", methods=["DELETE"])
+def delete_question_answer_by_id(id):
+    qa = QuestionAnswer.query.get(id)
+    if not qa:
+        return jsonify({"error": "Question not found"}), 404
+    db.session.delete(qa)
+    db.session.commit()
+    return jsonify({"message": "Question deleted successfully"})
+
+
 # get messsage ok
 @app.route("/test", methods=["GET"])
 def test():
