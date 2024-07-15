@@ -36,7 +36,7 @@ def get_all_questions_answers():
 
 @questions.route("/<int:id>", methods=["GET"])
 def get_question_answer_by_id(id):
-    qa = QuestionAnswer.query.get(id)
+    qa = db.session.get(QuestionAnswer, id)
     if not qa:
         return jsonify({"error": "Question not found"}), 404
     return jsonify({"id": qa.id, "question": qa.question, "answer": qa.answer})
@@ -44,7 +44,7 @@ def get_question_answer_by_id(id):
 
 @questions.route("/<int:id>", methods=["DELETE"])
 def delete_question_answer_by_id(id):
-    qa = QuestionAnswer.query.get(id)
+    qa = db.session.get(QuestionAnswer, id)
     if not qa:
         return jsonify({"error": "Question not found"}), 404
     db.session.delete(qa)
