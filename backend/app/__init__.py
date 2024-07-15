@@ -1,19 +1,22 @@
 from flask import Flask
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 from config import Config
+from app.routes import routes
+from database import db
 
 
-app = Flask(__name__)
+# db = SQLAlchemy()
 
-app.config.from_object(Config)
+def create_app(testing: bool = False):
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    CORS(app)
+    if testing:
+        app.config["SQLALCHEMY_DATABASE_URI"] = app.config["TEST_SQLALCHEMY_DATABASE_URI"]
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]
+    db.init_app(app)
 
-CORS(app)
+    app.register_blueprint(routes)
 
-app.config["SQLALCHEMY_DATABASE_URI"]
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]
-
-db = SQLAlchemy(app)
-
-
-from app import routes
+    return app
