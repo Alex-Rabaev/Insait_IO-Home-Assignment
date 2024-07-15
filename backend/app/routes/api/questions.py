@@ -1,10 +1,13 @@
-from app import app, db
-from flask import request, jsonify
-from app.models import QuestionAnswer
+from database import db
+from flask import Blueprint, request, jsonify
+from app.models.question_answer import QuestionAnswer
 from app.services.openai_service import get_openai_response
 
 
-@app.route("/ask", methods=["POST"])
+questions = Blueprint("questions", __name__)
+
+
+@questions.route("/ask", methods=["POST"])
 def ask_question():
     data = request.get_json()
     question = data.get("question")
@@ -21,7 +24,7 @@ def ask_question():
     return jsonify({"id": qa.id, "question": question, "answer": answer})
 
 
-@app.route("/questions", methods=["GET"])
+@questions.route("/", methods=["GET"])
 def get_all_questions_answers():
     questions_answers = QuestionAnswer.query.all()
     result = [
@@ -31,7 +34,7 @@ def get_all_questions_answers():
     return jsonify(result)
 
 
-@app.route("/questions/<int:id>", methods=["GET"])
+@questions.route("/<int:id>", methods=["GET"])
 def get_question_answer_by_id(id):
     qa = QuestionAnswer.query.get(id)
     if not qa:
@@ -39,7 +42,7 @@ def get_question_answer_by_id(id):
     return jsonify({"id": qa.id, "question": qa.question, "answer": qa.answer})
 
 
-@app.route("/questions/<int:id>", methods=["DELETE"])
+@questions.route("/<int:id>", methods=["DELETE"])
 def delete_question_answer_by_id(id):
     qa = QuestionAnswer.query.get(id)
     if not qa:
