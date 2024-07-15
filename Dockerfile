@@ -2,11 +2,10 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY backend/requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 COPY backend/ .
 
-RUN alembic upgrade head
-
-CMD ["python", "run.py"]
+# for runing Alembic migrations before starting the app
+CMD ["sh", "-c", "alembic upgrade head && python run.py"]

@@ -1,24 +1,27 @@
+version: '3.8'
+
 services:
   db:
     image: postgres:13
     env_file:
-      - .env
+      - backend/.env
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    container_name: db
 
   backend:
     build: .
-    command: python run.py
     volumes:
       - ./backend:/app
     ports:
       - "5000:5000"
     env_file:
-      - .env
+      - backend/.env
     depends_on:
       - db
+    container_name: backend
 
 volumes:
   pgdata:
