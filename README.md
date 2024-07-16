@@ -3,7 +3,7 @@
 This project is a simple Flask server that exposes an endpoint to ask a question. The server sends the question to the OpenAI API, receives the answer, and saves both the question and the answer in a PostgreSQL database. The server and the database are dockerized and run with Docker Compose. The project also includes tests using pytest.
 
 ## Project Structure
-
+```plaintext
 insait_io-home-assignment/
 ├── backend/
 │ ├── app/
@@ -32,7 +32,7 @@ insait_io-home-assignment/
 ├── docker-compose.yml
 ├── README.md
 └── requirements.txt
-
+```
 
 ## Prerequisites
 
