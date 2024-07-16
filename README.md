@@ -4,33 +4,36 @@ This project is a simple Flask server that exposes an endpoint to ask a question
 
 ## Project Structure
 ```plaintext
-insait_io-home-assignment/
+Insait_IO-Home-Assignment/
 ├── backend/
 │ ├── app/
-│ │ ├── init.py
 │ │ ├── models/
-│ │ │ └── init.py
+│ │ │ └── __init__.py
 │ │ │ └── question_answer.py
 │ │ ├── routes/
 │ │ │ └── api/
-│ │ │ └── init.py
-│ │ │ └── questions.py
+│ │ │ │ └── __init__.py
+│ │ │ │ └── questions.py
+│ │ │ └── __init__.py
 │ │ └── services/
-│ │ └── init.py
-│ │ └── openai_service.py
+│ │ │ └── __init__.py
+│ │ │ └── openai_service.py
+│ │ └── __init__.py
 │ ├── migrations/
 │ │ └── ... (Alembic migration files)
 │ ├── tests/
-│ │ └── init.py
+│ │ └── __init__.py
 │ │ └── test_routes.py
 │ ├── .env
 │ ├── .env.example
+│ ├── alembic.ini
 │ ├── config.py
+│ ├── database.py
 │ └── run.py
 ├── .gitignore
 ├── Dockerfile
-├── docker-compose.yml
 ├── README.md
+├── docker-compose.yml
 └── requirements.txt
 ```
 
