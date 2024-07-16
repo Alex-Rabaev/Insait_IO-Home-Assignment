@@ -30,6 +30,8 @@ Insait_IO-Home-Assignment/
 │ ├── config.py
 │ ├── database.py
 │ └── run.py
+├── .env
+├── .env.example
 ├── .gitignore
 ├── Dockerfile
 ├── README.md
@@ -48,23 +50,27 @@ Insait_IO-Home-Assignment/
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/yourusername/insait_io-home-assignment.git
+git clone https://github.com/Alex-Rabaev/Insait_IO-Home-Assignment.git
 cd insait_io-home-assignment
 ```
 
-2. Create a `.env` file in the `backend` directory with the following content:
+2. Create two `.env` files.
 
-```bash
-DATABASE_URL=postgresql+psycopg2://<POSTGRES_USER>:<POSTGRES_PASSWORD>@<POSTGRES_HOST>:<POSTGRES_PORT>/<POSTGRES_DB>
-TEST_DATABASE_URL=postgresql+psycopg2://<POSTGRES_USER>:<POSTGRES_PASSWORD>@localhost:<POSTGRES_PORT>/test
-OPENAI_API_KEY='YOUR_OPENAI_API_KEY'
-POSTGRES_USER='YOUR_POSTGRES_USER'
-POSTGRES_PASSWORD='YOUR_POSTGRES_PASSWORD'
-POSTGRES_DB='YOUR_POSTGRES_DB'
-POSTGRES_HOST="YOUR_POSTGRES_HOST"
-POSTGRES_PORT="YOUR_POSTGRES_PORT"
-```
-Replace `your_openai_api_key` with your actual OpenAI API key. `POSTGRES_PORT` for `TEST_DATABASE_URL` should be `localhost`.
+    1. **First in the `backend` directory** with the following content:
+        ```bash
+        DATABASE_URL=postgresql+psycopg2://<POSTGRES_USER>:<POSTGRES_PASSWORD>@db:5432/<POSTGRES_DB>
+        TEST_DATABASE_URL=postgresql+psycopg2://<POSTGRES_USER>:<POSTGRES_PASSWORD>@localhost:5432/test
+        OPENAI_API_KEY='YOUR_OPENAI_API_KEY'
+        ```
+        Replace `YOUR_OPENAI_API_KEY`, `<POSTGRES_USER>`, `<POSTGRES_PASSWORD>`, and `<POSTGRES_DB>` with your actual values.
+
+    2. **Second in the main directory** (where `docker-compose.yml` is located) with the following content:
+        ```bash
+        POSTGRES_USER='YOUR_POSTGRES_USER'
+        POSTGRES_PASSWORD='YOUR_POSTGRES_PASSWORD'
+        POSTGRES_DB='YOUR_POSTGRES_DB'
+        ```
+        Replace `YOUR_POSTGRES_USER`, `YOUR_POSTGRES_PASSWORD`, and `YOUR_POSTGRES_DB` with your actual values.
 
 3. Build and run the Docker containers:
 
