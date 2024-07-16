@@ -10,6 +10,18 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     container_name: db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    command: >
+      sh -c "
+        docker-entrypoint.sh postgres &
+        sleep 10 &&
+        psql -U $POSTGRES_USER -d $POSTGRES_DB -tc \"SELECT 1 FROM pg_database WHERE datname = 'test'\" | grep -q 1 ||
+        psql -U $POSTGRES_USER -d $POSTGRES_DB -c 'CREATE DATABASE test;' &&
+        wait
+      "
 
   backend:
     build: .
