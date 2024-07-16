@@ -131,8 +131,32 @@ This will set up the PostgreSQL database, apply Alembic migrations, and start th
 }
 ```
 ## Running Tests
-To run the tests, use the following command:
-```sh
-pytest
-```
-This will run all the tests in the backend/tests directory. The database container must be running when this command is executed.
+
+To run the tests, follow these steps:
+
+1. Create a virtual environment:
+    ```sh
+    python -m venv venv
+    ```
+
+2. Activate the virtual environment:
+    - For Windows:
+        ```sh
+        venv\Scripts\activate
+        ```
+    - For MacOS or Linux:
+        ```sh
+        source venv/bin/activate
+        ```
+
+3. Install the required dependencies:
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+4. Run the tests using `pytest`:
+    ```sh
+    pytest
+    ```
+
+**Note:** Ensure the database container is running when executing the tests.
