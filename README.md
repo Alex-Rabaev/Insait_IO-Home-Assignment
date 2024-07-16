@@ -129,4 +129,4 @@ To run the tests, use the following command:
 ```sh
 pytest
 ```
-This will run all the tests in the backend/tests directory.
+This will run all the tests in the backend/tests directory. The database container must be running when this command is executed.
